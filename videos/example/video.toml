@@ -1,0 +1,41 @@
+# The cue map: which scenes the video has, in order, and the spoken phrase
+# each animation waits for. See README.md, "The cue map".
+#
+#   start  the first words of the scene (every scene except the first)
+#   cues   name = "the first words of the sentence the animation should hit"
+#          name = { phrase = "...", offset = 0.4 }   to fire 0.4 s later
+#
+# Phrases are searched for in order through the whole voiceover, so the same
+# words can come up many times. Write them the way Whisper heard them
+# (./pipeline transcript), which is not always the way the manuscript has it.
+
+title = "Generics intro (example)"
+
+# Added to the series vocabulary in project.toml.
+vocabulary = "Generics i C#. Container<T>, List<string>, List<int>, StringContainer, IntContainer, Value property, typeparameter, klassedefinisjon."
+
+recordings = "name"
+
+[[scenes]]
+name = "Opening"
+  [scenes.cues]
+  ghosts = "to forskjellige listeklasser"
+  title = "i denne videoen"
+
+[[scenes]]
+name = "WithoutGenerics"
+start = "se hva som skjer"
+  [scenes.cues]
+  identical = "legg merke til at disse tre"
+  rule = "hvis vi vil endre en regel"
+  smell = "dette burde gi"
+  merge = "for å hjelpe med dette"
+  param = "når vi designer en klasse"
+
+[[scenes]]
+name = "ContainerT"
+start = "her har vi en supersimpel"
+  [scenes.cues]
+  brackets = "legg merke til den litt sære"
+  object = "når vi lager et faktisk objekt"
+  value = "vi ser at klassen vår"

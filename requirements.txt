@@ -1,0 +1,8 @@
+# Manim Community: the template is developed and tested against 0.20.1 on
+# Python 3.12. The scenes are written in Python; what they *show* can be any
+# language.
+manim>=0.19,<0.21
+
+# Speech to text with word timestamps, to time the animations to the
+# voiceover. Runs on the CPU (int8) when there is no NVIDIA GPU.
+faster-whisper>=1.2

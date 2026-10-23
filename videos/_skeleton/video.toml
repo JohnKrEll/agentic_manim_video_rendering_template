@@ -1,0 +1,21 @@
+# The cue map: which scenes the video has, in order, and the spoken phrase
+# each animation waits for. See README.md, "The cue map".
+#
+#   start  the first words of the scene (every scene except the first)
+#   cues   name = "the first words of the sentence the animation should hit"
+#          name = { phrase = "...", offset = 0.4 }   to fire 0.4 s later
+#
+# Phrases are searched for in order through the whole voiceover, so the same
+# words can come up many times. Before recording they are guesses from the
+# manuscript; after recording, write them the way Whisper heard them
+# (./pipeline transcript).
+
+title = "{{TITLE}}"
+
+# Words for Whisper, added to the series vocabulary in project.toml.
+vocabulary = ""
+
+[[scenes]]
+name = "Opening"
+  [scenes.cues]
+  title = "i denne videoen"

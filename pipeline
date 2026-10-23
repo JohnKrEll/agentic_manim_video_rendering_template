@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# Runs the video pipeline (engine/pipeline.py) with the project's Python.
+#
+#   ./pipeline status
+#   ./pipeline build <video>
+#   ./pipeline --help
+#
+# Uses .venv/ (made by ./setup.sh), or the Python in $MANIM_PYTHON.
+set -euo pipefail
+
+cd "$(dirname "$0")"
+
+if [ -x .venv/bin/python ]; then
+    PY=.venv/bin/python
+elif [ -n "${MANIM_PYTHON:-}" ]; then
+    PY="$MANIM_PYTHON"
+else
+    echo "No .venv here. Run ./setup.sh first (or set MANIM_PYTHON to a Python with Manim)." >&2
+    exit 1
+fi
+
+exec "$PY" engine/pipeline.py "$@"

@@ -1,0 +1,44 @@
+# Series-wide settings. Every videos/<slug>/video.toml can override any key.
+
+# The spoken language (ISO 639-1 code), passed to Whisper: "no", "en", "sv" ...
+language = "no"
+
+# Whisper model. large-v3 is clearly the most accurate for Norwegian; on a
+# CPU it transcribes a 4-minute video in a few minutes. "medium" is faster
+# but mishears technical terms more often.
+whisper_model = "large-v3"
+whisper_device = "cpu"          # "cuda" on a machine with an NVIDIA GPU
+whisper_compute_type = "int8"   # "float16" on a GPU
+
+# Words Whisper should expect: names, code, English terms in Norwegian
+# speech. It is passed as Whisper's initial prompt, and a video's own
+# vocabulary is added after it.
+# Write it as a sentence in the written standard you want back: Whisper
+# copies the prompt's style. A bare list of English terms made it drift into
+# Nynorsk ("kva", "viss", "ein") on the same audio that gave Bokmål with a
+# Bokmål prompt. Changing it re-transcribes on the next sync.
+vocabulary = "Dette er en video på norsk bokmål om programmering i C# og .NET, med ord som class, interface, property, metode, typeparameter og code smell."
+
+# The order recordings are joined in:
+#   "name"      sorted by file name (01_..., 02_...): robust to re-takes
+#   "recorded"  in the order the files were last written
+#   [ ... ]     an explicit list of file names, in video.toml
+recordings = "name"
+
+# Whisper sometimes "hears" a TV-subtitle credit in silence ("Teksting av
+# Nicolai Winther" turned up in the testing video). Segments that *start*
+# with one of these phrases are dropped. Keep the list to things you would
+# never say: a dropped segment is cut from the audio too.
+drop_phrases = [
+  "Teksting av",
+  "Undertekster av",
+  "Norske undertekster",
+  "Subtitles by",
+]
+
+[timing]
+cue_lead = 0.15    # a cue fires this long before its word, so the motion is under way when it is said
+scene_lead = 0.3   # a scene starts this long before its first word
+head = 0.25        # silence kept before the first word of each recording
+tail = 0.5         # silence kept after the last word of each recording
+fps = 60           # scene boundaries are rounded to whole frames at this rate
